@@ -1,4 +1,4 @@
-# Fine-tune Typhoon
+# Fine-tune Typhoon example
 
 ## Install
 ```
@@ -14,6 +14,6 @@ python scripts/finetune.py examples/typhoon/typhoon-qlora.yml
 ```
 
 ## Credit & Thank you
-```
-https://github.com/OpenAccess-AI-Collective/axolotl
-```
+
+- [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl) - awesome fine-tuning framework
+- [Thaweewat/alpaca-cleaned-52k-th](https://huggingface.co/datasets/Thaweewat/alpaca-cleaned-52k-th) - example dataset

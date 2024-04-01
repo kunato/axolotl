@@ -47,7 +47,7 @@ def parse_requirements():
 
             if (major, minor) >= (2, 1):
                 _install_requires.pop(_install_requires.index("xformers==0.0.22"))
-                _install_requires.append("xformers>=0.0.23")
+                _install_requires.append("xformers==0.0.23.post1")
     except PackageNotFoundError:
         pass
 

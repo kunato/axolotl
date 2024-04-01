@@ -1,0 +1,77 @@
+base_model: scb10x/typhoon-7b
+base_model_config: scb10x/typhoon-7b
+model_type: MistralForCausalLM
+tokenizer_type: LlamaTokenizer
+is_mistral_derived_model: true
+
+load_in_8bit: false
+load_in_4bit: true
+strict: false
+
+datasets:
+  - path: Thaweewat/alpaca-cleaned-52k-th
+    type: alpaca
+
+dataset_prepared_path: ./last_run_prepared_th
+val_set_size: 0.00
+output_dir: ./typhoon-alpaca-th
+save_total_limit: 3
+deepspeed:
+adapter: qlora
+lora_model_dir:
+
+noisy_embedding_alpha: false
+sequence_len: 8192
+sample_packing: true
+pad_to_sequence_len: true
+
+lora_r: 32
+lora_alpha: 16
+lora_dropout: 0.05
+lora_target_modules:
+lora_target_linear: true
+lora_fan_in_fan_out:
+
+wandb_project:
+wandb_entity:
+wandb_watch:
+wandb_run_id:
+wandb_log_model:
+
+gradient_accumulation_steps: 64
+micro_batch_size: 1
+num_epochs: 3
+optimizer: adamw_torch
+learning_rate: 0.0004
+lr_scheduler: cosine
+warmup_steps: 10
+weight_decay: 0.1
+adam_beta1: 0.9
+adam_beta2: 0.95
+adam_epsilon: 0.00001
+
+train_on_inputs: false
+group_by_length: false
+bf16: true
+fp16: false
+tf32: true
+
+gradient_checkpointing: true
+early_stopping_patience:
+resume_from_checkpoint:
+local_rank:
+logging_steps: 1
+xformers_attention: false
+flash_attention: true
+
+seed: 42
+eval_table_size: 0
+eval_sample_packing: false
+eval_table_max_new_tokens: 128
+save_steps:
+debug:
+fsdp:
+fsdp_config:
+special_tokens:
+  unk_token: "<unk>"
+  pad_token: "<unk>"

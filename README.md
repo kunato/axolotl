@@ -1,3 +1,22 @@
+# Fine-tune Typhoon
+
+## Install
+```
+conda create -n axolotl python=3.10 -c conda-forge
+pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu121
+pip install -e .
+pip install flash-attn
+```
+
+## Run
+```
+python scripts/finetune.py examples/typhoon/typhoon-qlora.yml
+```
+
+
+
+# Original README
+
 # Axolotl
 
 Axolotl is a tool designed to streamline the fine-tuning of various AI models, offering support for multiple configurations and architectures.
@@ -22,37 +41,58 @@ Features:
 <td>
 
 ## Table of Contents
-- [Introduction](#axolotl)
-- [Supported Features](#axolotl-supports)
-- [Quickstart](#quickstart-)
-- [Environment](#environment)
-  - [Docker](#docker)
-  - [Conda/Pip venv](#condapip-venv)
-  - [Cloud GPU](#cloud-gpu) - Latitude.sh, JarvisLabs, RunPod
-  - [Bare Metal Cloud GPU](#bare-metal-cloud-gpu)
-  - [Windows](#windows)
-  - [Mac](#mac)
-  - [Google Colab](#google-colab)
-  - [Launching on public clouds via SkyPilot](#launching-on-public-clouds-via-skypilot)
-- [Dataset](#dataset)
-  - [How to Add Custom Prompts](#how-to-add-custom-prompts)
-  - [How to Use Custom Pretokenized Dataset](#how-to-use-your-custom-pretokenized-dataset)
-- [Config](#config)
-  - [Train](#train)
-  - [Inference](#inference-playground)
-  - [Merge LORA to Base](#merge-lora-to-base)
-  - [Special Tokens](#special-tokens)
-- Advanced Topics
-  - [Multipack](./docs/multipack.qmd)<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#666" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-  - [RLHF & DPO](./docs/rlhf.qmd)<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#666" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-- [Common Errors](#common-errors-)
-  - [Tokenization Mismatch b/w Training & Inference](#tokenization-mismatch-bw-inference--training)
-- [Debugging Axolotl](#debugging-axolotl)
-- [Need Help?](#need-help-)
-- [Badge](#badge-)
-- [Community Showcase](#community-showcase)
-- [Contributing](#contributing-)
-- [Sponsors](#sponsors-)
+- [Fine-tune Typhoon](#fine-tune-typhoon)
+  - [Install](#install)
+  - [Run](#run)
+- [Original README](#original-readme)
+- [Axolotl](#axolotl)
+  - [Table of Contents](#table-of-contents)
+  - [Axolotl supports](#axolotl-supports)
+  - [Quickstart ⚡](#quickstart-)
+    - [Usage](#usage)
+  - [Advanced Setup](#advanced-setup)
+    - [Environment](#environment)
+      - [Docker](#docker)
+      - [Conda/Pip venv](#condapip-venv)
+      - [Cloud GPU](#cloud-gpu)
+      - [Bare Metal Cloud GPU](#bare-metal-cloud-gpu)
+        - [LambdaLabs](#lambdalabs)
+        - [GCP](#gcp)
+      - [Windows](#windows)
+      - [Mac](#mac)
+      - [Google Colab](#google-colab)
+      - [Launching on public clouds via SkyPilot](#launching-on-public-clouds-via-skypilot)
+    - [Dataset](#dataset)
+      - [Pretraining](#pretraining)
+      - [Supervised finetuning](#supervised-finetuning)
+        - [Instruction](#instruction)
+        - [Template-Free](#template-free)
+        - [Conversation](#conversation)
+      - [How to add custom prompts](#how-to-add-custom-prompts)
+      - [How to use your custom pretokenized dataset](#how-to-use-your-custom-pretokenized-dataset)
+    - [Config](#config)
+    - [Train](#train)
+      - [Preprocess dataset](#preprocess-dataset)
+      - [Multi-GPU](#multi-gpu)
+        - [DeepSpeed](#deepspeed)
+        - [FSDP](#fsdp)
+        - [FSDP + QLoRA](#fsdp--qlora)
+        - [Weights \& Biases Logging](#weights--biases-logging)
+        - [Special Tokens](#special-tokens)
+    - [Inference Playground](#inference-playground)
+    - [Merge LORA to base](#merge-lora-to-base)
+  - [Common Errors 🧰](#common-errors-)
+    - [Tokenization Mismatch b/w Inference \& Training](#tokenization-mismatch-bw-inference--training)
+  - [Debugging Axolotl](#debugging-axolotl)
+  - [Need help? 🙋](#need-help-)
+  - [Badge ❤🏷️](#badge-️)
+  - [Community Showcase](#community-showcase)
+  - [Contributing 🤝](#contributing-)
+  - [Sponsors 🤝❤](#sponsors-)
+      - [💎 Diamond Sponsors - Contact directly](#-diamond-sponsors---contact-directly)
+      - [🥇 Gold Sponsors - $5000/mo](#-gold-sponsors---5000mo)
+      - [🥈 Silver Sponsors - $1000/mo](#-silver-sponsors---1000mo)
+      - [🥉 Bronze Sponsors - $500/mo](#-bronze-sponsors---500mo)
 
 </td>
 <td>
